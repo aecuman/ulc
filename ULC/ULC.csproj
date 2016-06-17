@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DHTMLX, Version=3.3.5989.27017, Culture=neutral, PublicKeyToken=53f24791214eb8ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\DHTMLX.Scheduler.NET.3.3.18.0\lib\DHTMLX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -208,14 +212,28 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Activity.cs">
+      <DependentUpon>ULCSched.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SchedulerModel.cs" />
+    <Compile Include="Models\ULCSched.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ULCSched.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ULCSched.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ULCSched.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ULCSched.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -227,6 +245,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dhtmlxscheduler\dhtmlxscheduler-responsive-classic.css" />
+    <Content Include="Content\dhtmlxscheduler\dhtmlxscheduler-responsive.css" />
     <Content Include="Content\dhtmlxscheduler\dhtmlxscheduler.css" />
     <Content Include="Content\dhtmlxscheduler\dhtmlxscheduler_classic.css" />
     <Content Include="Content\dhtmlxscheduler\dhtmlxscheduler_flat.css" />
@@ -308,10 +328,23 @@
     <Content Include="Content\dhtmlxscheduler\sources\skins\dhtmlxscheduler_classic.css" />
     <Content Include="Content\dhtmlxscheduler\sources\skins\dhtmlxscheduler_flat.css" />
     <Content Include="Content\dhtmlxscheduler\sources\skins\dhtmlxscheduler_glossy.css" />
+    <Content Include="dhxscheduler.sample.mvc.responsive.readme.txt" />
+    <Content Include="dhxscheduler.sample.mvc3.readme.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ULCSched.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ULCSched.Context.cs</LastGenOutput>
+      <DependentUpon>ULCSched.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ULCSched.edmx.sql" />
+    <Content Include="Models\ULCSched.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ULCSched.cs</LastGenOutput>
+      <DependentUpon>ULCSched.edmx</DependentUpon>
+    </Content>
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -319,22 +352,33 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\dhtmlxscheduler\dhtmlxscheduler-responsive.js" />
+    <Content Include="Scripts\dhtmlxscheduler\dhtmlxscheduler.css" />
     <Content Include="Scripts\dhtmlxscheduler\dhtmlxscheduler.js" />
+    <Content Include="Scripts\dhtmlxscheduler\dhtmlxscheduler_classic.css" />
+    <Content Include="Scripts\dhtmlxscheduler\dhtmlxscheduler_custom_lightbox.js" />
+    <Content Include="Scripts\dhtmlxscheduler\dhtmlxscheduler_flat.css" />
+    <Content Include="Scripts\dhtmlxscheduler\dhtmlxscheduler_glossy.css" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_active_links.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_agenda_view.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_all_timed.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_collision.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_container_autoresize.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_cookie.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_daytimeline.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_drag_between.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_editors.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_expand.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_grid_view.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_html_templates.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_key_nav.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_layer.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_limit.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_live_updates.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_map_view.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_minical.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_monthheight.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_multisection.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_multiselect.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_multisource.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_mvc.js" />
@@ -345,10 +389,87 @@
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_readonly.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_recurring.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_serialize.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_timeline.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_tooltip.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_treetimeline.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_units.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_url.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_week_agenda.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_wp.js" />
     <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_year_view.js" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\buttons.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\but_repeat.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\calendar.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\clock_big.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\clock_small.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\collapse_expand_icon.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\controls.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\databg.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\databg_now.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\export_ical.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\export_pdf.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\icon.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\images.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\loading.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs\resize_dots.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\arrow_left.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\arrow_right.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\but_repeat.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\calendar.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\clock_big.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\clock_small.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\close_icon.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\collapse_expand_icon.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\controls.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\databg.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\databg_now.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\export_ical.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\export_pdf.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\resize_dots.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_dhx_terrace\resizing.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\agenda_bg.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\arrow_left.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\arrow_right.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\but_repeat.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\calendar.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\clock.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\clock_big.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\clock_small.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\close_icon.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\collapse_expand_icon.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\controls.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\databg.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\databg_now.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\export_ical.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\export_pdf.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\resize_dots.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_flat\resizing.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\blue_tab.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\blue_tab_wide.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\buttons.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\but_repeat.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\calendar.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\clock_big.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\clock_small.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\collapse_expand_icon.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\controlls5.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\databg.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\databg_now.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\event-bg.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\export_ical.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\export_pdf.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\icon.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\left-separator.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\left-time-bg.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\lightbox.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\loading.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\move.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\multi-days-bg.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\second-top-days-bg.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\top-days-bg.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\top-separator.gif" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\white_tab.png" />
+    <Content Include="Scripts\dhtmlxscheduler\imgs_glossy\white_tab_wide.png" />
     <Content Include="Scripts\dhtmlxscheduler\locale\locale_ar.js" />
     <Content Include="Scripts\dhtmlxscheduler\locale\locale_be.js" />
     <Content Include="Scripts\dhtmlxscheduler\locale\locale_ca.js" />
@@ -500,9 +621,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -523,6 +641,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Calendar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -534,6 +653,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
