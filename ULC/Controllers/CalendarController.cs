@@ -38,8 +38,7 @@ namespace ULC.Controllers
                     new List<Activity>{
                         new Activity{
                             Id = 1,
-                            text_title = "Sample Activity",
-                            text_detail="Talent Rehearsel",
+                            text = "Sample Activity",                           
                             start_date = new DateTime(2016, 06, 17, 6, 00, 00), 
                             end_date = new DateTime(2016, 06, 17, 8, 00, 00)
                         },
