@@ -34,18 +34,7 @@ namespace ULC.Controllers
 
         public ContentResult Data()
         {
-            var data = new SchedulerAjaxData(
-                    new List<Activity>{
-                        new Activity{
-                            Id = 1,
-                            text = "Sample Activity",                           
-                            start_date = new DateTime(2016, 06, 17, 6, 00, 00), 
-                            end_date = new DateTime(2016, 06, 17, 8, 00, 00)
-                        },
-                        
-                    }
-                );
-            return (ContentResult)data;
+            return new SchedulerAjaxData(new ULCSchedContainer().Activities);
         }
 
         public ActionResult Save(Activity updatedEvent, FormCollection formData)
