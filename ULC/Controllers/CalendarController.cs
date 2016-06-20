@@ -19,7 +19,7 @@ namespace ULC.Controllers
         {
             //Being initialized in that way, scheduler will use CalendarController.Data as a the datasource and CalendarController.Save to process changes
             var scheduler = new DHXScheduler(this);
-
+            scheduler.BeforeInit.Add(string.Format("initResponsive({0})", scheduler.Name));
 
             scheduler.InitialDate = DateTime.Now;
             scheduler.InitialView = "day";
@@ -28,7 +28,7 @@ namespace ULC.Controllers
             scheduler.EnableDataprocessor = true;
             
             //
-            scheduler.BeforeInit.Add(string.Format("initResponsive({0})", scheduler.Name));
+           
 
             return View(scheduler);
         }
