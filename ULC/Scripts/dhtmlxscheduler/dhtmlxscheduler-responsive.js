@@ -24,23 +24,22 @@ function initResponsive(scheduler) {
 		};
 	}
 
-	function setNavbarHeight() {
-		/* set sizes based on screen size */
-		if (typeof scheduler !== "undefined") {
+	scheduler.attachEvent("onBeforeViewChange", function setNavbarHeight() {
+	    /* set sizes based on screen size */
+	    if (typeof scheduler !== "undefined") {
 
-			if (window.innerWidth >= 768) {
-				setSizes(navbarHeight, navbarClassicHeight, scaleDate);
-			} else {
-				setSizes(navbarMobileHeight, navbarClassicMobileHeight, scaleDateMobile);
-			}
-		}
-		return true;
-	}
-
+	        if (window.innerWidth >= 768) {
+	            setSizes(navbarHeight, navbarClassicHeight, scaleDate);
+	        } else {
+	            setSizes(navbarMobileHeight, navbarClassicMobileHeight, scaleDateMobile);
+	        }
+	    }
+	    return true;
+	});
 	scheduler.attachEvent("onSchedulerResize", function () {
 		scheduler.setCurrentView();
 	});
-	scheduler.attachEvent("onBeforeViewChange", setNavbarHeight);
+	
 
 	scheduler.attachEvent("onTemplatesReady", function () {
 		if (classic[scheduler.skin]) {
@@ -68,7 +67,7 @@ function initResponsive(scheduler) {
 	}
 
 
-	if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) && loadQuickInfo) {
+	if (window.innerWidth >= 768 && loadQuickInfo) {
 		addJS("../Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_quick_info.js", function () {
 			scheduler.config.touch = "force";
 			scheduler.xy.menu_width = 0;
