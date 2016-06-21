@@ -67,7 +67,7 @@ function initResponsive(scheduler) {
 	}
 
 
-	if (window.innerWidth >= 768 && loadQuickInfo) {
+	if (/Android|webOS|iPhone|iPad|iPod|IEMobile/i.test(navigator.userAgent) && loadQuickInfo) {
 		addJS("../Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_quick_info.js", function () {
 			scheduler.config.touch = "force";
 			scheduler.xy.menu_width = 0;
